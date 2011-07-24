@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name = 'ecl_facebook',
-    version = '1.0',
+    version = '0.1',
     url = 'http://elmcitylabs.com',
     license = 'BSD',
     description = 'Easy Facebook integration for Django.',
