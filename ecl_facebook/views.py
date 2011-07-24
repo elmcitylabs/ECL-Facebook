@@ -1,10 +1,8 @@
 from django.http import HttpResponseRedirect
 from django.views.decorators.http import require_GET
 from django.conf import settings
-from django.core.urlresolvers import reverse
 import urllib
 import cgi
-import facebook
 
 FACEBOOK_DIALOG_PARAMS = {
         "client_id": settings.FACEBOOK_APP_ID,
