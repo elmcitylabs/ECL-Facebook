@@ -37,5 +37,5 @@ def facebook_oauth_complete(request):
 
     token = attributes['access_token'][0]
 
-    return HttpResponseRedirect("%s?token=%s" % (reverse(settings.FACEBOOK_POST_COMPLETE_URL), token))
+    return HttpResponseRedirect("%s?token=%s" % (settings.FACEBOOK_POST_COMPLETE_URL, token))
 
