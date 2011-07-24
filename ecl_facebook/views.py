@@ -3,6 +3,7 @@ from django.views.decorators.http import require_GET
 from django.conf import settings
 import urllib
 import cgi
+from signals import post_facebook_auth
 
 FACEBOOK_DIALOG_PARAMS = {
         "client_id": settings.FACEBOOK_KEY,
@@ -37,5 +38,7 @@ def facebook_oauth_complete(request):
 
     token = attributes['access_token'][0]
 
-    return HttpResponseRedirect("%s?token=%s" % (settings.FACEBOOK_POST_COMPLETE_URL, token))
+    post_facebook_auth.send("ecl_facebook", token=token, id=request.user.id)
+
+    return HttpResponseRedirect(settings.FACEBOOK_POST_COMPLETE_URL)
 
