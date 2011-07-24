@@ -6,23 +6,23 @@ import urllib
 import cgi
 import facebook
 
-FACEBOOK_OAUTH_DIALOG_PARAMS = {
+FACEBOOK_DIALOG_PARAMS = {
         "client_id": settings.FACEBOOK_APP_ID,
-        "redirect_uri": settings.FACEBOOK_REDIRECT_URI,
-        "scope": settings.FACEBOOK_OAUTH_SCOPE
+        "redirect_uri": settings.FACEBOOK_REDIRECT_URL,
+        "scope": settings.FACEBOOK_SCOPE
     }
 
 FACEBOOK_ACCESS_TOKEN_PARAMS = {
     "client_id": settings.FACEBOOK_APP_ID,
-    "client_secret": settings.FACEBOOK_APP_SECRET,
-    "redirect_uri": settings.FACEBOOK_REDIRECT_URI,
+    "client_secret": settings.FACEBOOK_SECRET,
+    "redirect_uri": settings.FACEBOOK_REDIRECT_URL,
 }
 
-FACEBOOK_OAUTH_DIALOG_URL = "https://www.facebook.com/dialog/oauth?" + urllib.urlencode(FACEBOOK_OAUTH_DIALOG_PARAMS)
+FACEBOOK_DIALOG_URL = "https://www.facebook.com/dialog/oauth?" + urllib.urlencode(FACEBOOK_DIALOG_PARAMS)
 
 @require_GET
 def facebook_oauth_begin(request):
-    return HttpResponseRedirect(FACEBOOK_OAUTH_DIALOG_URL)
+    return HttpResponseRedirect(FACEBOOK_DIALOG_URL)
 
 @require_GET
 def facebook_oauth_complete(request):
@@ -37,30 +37,7 @@ def facebook_oauth_complete(request):
     data = response.read()
     attributes = cgi.parse_qs(data)
 
-    access_token = attributes['access_token'][0]
+    token = attributes['access_token'][0]
 
-    graph = facebook.GraphAPI(access_token)
-    profile = graph.get_object("me")
-
-    id = profile['id']
-
-    if request.user.is_authenticated() and not request.user.facebook_id:
-        graph = facebook.GraphAPI(access_token)
-        friends = graph.get_connections('me', 'friends')
-        friend_ids = ','.join(map(lambda k: k['id'], friends['data']))
-
-        user = request.user
-        user.facebook_id = id
-        user.facebook_access_token = access_token
-        user.facebook_friends = friend_ids
-        user.save()
-
-        # The user now has Facebook data. Redirect them where appropriate.
-        if 'redirect_to_pledge' in request.session:
-            pledge_id = request.session['redirect_to_pledge']
-            return HttpResponseRedirect(reverse('view-pledge', args=[pledge_id]))
-        else:
-            return HttpResponseRedirect(reverse('home'))
-    else:
-        raise Exception, "Not implemented"
+    return HttpResponseRedirect("%s?token=%s" % (reverse(settings.FACEBOOK_POST_COMPLETE_URL), token))
 
