@@ -81,7 +81,7 @@ class FacebookCall(object):
         kwargs['access_token'] = self.token
 
         # Format dats with Unix timestamps instead of ISO-8601.
-        kwargs['date_format'] = 'U'
+        # kwargs['date_format'] = 'U'
         encoded_params = urllib.urlencode(kwargs)
 
         url = FACEBOOK_API_BASE + endpoint
