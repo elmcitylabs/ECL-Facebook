@@ -99,7 +99,11 @@ class FacebookCall(object):
             message = data['error']['message']
             raise FacebookError(message=message, type=type, code=e.code)
 
-        response_obj = Objectifier(json.load(response))
+        data = response.read()
+        try:
+            response_obj = Objectifier(json.loads(data))
+        except ValueError:
+            return data
 
         if 'error' in response_obj:
             raise FacebookError(message=response_obj.error.message,
