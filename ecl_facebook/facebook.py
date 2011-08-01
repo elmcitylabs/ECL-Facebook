@@ -179,7 +179,7 @@ def parse_signed_request(signed_request, app_secret):
     except TypeError:
         return False # raise ValueError('signed_request had corrupted payload')
 
-    data = json.load(data)
+    data = json.loads(data)
     if data.get('algorithm', '').upper() != 'HMAC-SHA256':
         return False # raise ValueError('signed_request used unknown algorithm')
 
