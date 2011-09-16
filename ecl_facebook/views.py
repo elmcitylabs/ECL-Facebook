@@ -5,6 +5,9 @@ import constants
 
 @require_GET
 def facebook_oauth_begin(request):
+    if 'popup' in request.GET:
+        request.session['facebook_popup'] = True
+
     return HttpResponseRedirect(constants.FACEBOOK_DIALOG_URL)
 
 @require_GET
