@@ -14,8 +14,4 @@ FACEBOOK_ACCESS_TOKEN_PARAMS = {
 }
 
 FACEBOOK_DIALOG_URL = "https://www.facebook.com/dialog/oauth?" + urllib.urlencode(FACEBOOK_DIALOG_PARAMS)
-try:
-    FACEBOOK_POST_COMPLETE_URL = settings.FACEBOOK_POST_COMPLETE_URL
-except:
-    FACEBOOK_POST_COMPLETE_URL = "/"
 

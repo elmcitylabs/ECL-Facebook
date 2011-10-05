@@ -13,5 +13,5 @@ def facebook_oauth_begin(request):
 @require_GET
 @facebook_callback
 def facebook_oauth_complete(request, token, id):
-    return HttpResponseRedirect(constants.FACEBOOK_POST_COMPLETE_URL)
+    return HttpResponseRedirect(constants.FACEBOOK_REDIRECT_URL)
 
