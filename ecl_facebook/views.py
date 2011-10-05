@@ -4,7 +4,7 @@ from decorators import facebook_callback
 import constants
 
 @require_GET
-def facebook_oauth_begin(request):
+def oauth_facebook_begin(request):
     if 'popup' in request.GET:
         request.session['facebook_popup'] = True
 
@@ -12,6 +12,6 @@ def facebook_oauth_begin(request):
 
 @require_GET
 @facebook_callback
-def facebook_oauth_complete(request, token, id):
+def oauth_facebook_complete(request, token, id):
     return HttpResponseRedirect(constants.FACEBOOK_REDIRECT_URL)
 
