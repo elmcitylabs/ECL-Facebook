@@ -6,7 +6,10 @@ import constants
 
 def facebook_callback(fun):
     def k(request, *args, **kwargs):
-        code = request.GET['code']
+        code = request.GET.get('code', None)
+        if not code:
+            # XXX Incorporate better app-specific error handling here.
+            return HttpResponse("'code' is a required parameter.")
 
         params = constants.FACEBOOK_ACCESS_TOKEN_PARAMS.copy()
         params['code'] = code
