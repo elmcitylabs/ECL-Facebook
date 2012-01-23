@@ -12,6 +12,9 @@ from ecl_tools.utils import Objectifier
 FACEBOOK_API_BASE = "https://graph.facebook.com/"
 
 class FacebookError(Exception):
+    """
+    Exception for all Facebook Graph API-related errors.
+    """
     def __init__(self, message, type, code):
         self.message = message
         self.type = type
@@ -22,6 +25,10 @@ class FacebookError(Exception):
 
 
 class FacebookCall(object):
+    """
+    Abstract object that helps create a clean object-based interface to the
+    Facebook Graph API.
+    """
     def __init__(self, token, endpoint_components):
         self.token = token
         self.endpoint_components = endpoint_components
@@ -71,14 +78,15 @@ class FacebookCall(object):
 
 
 class Facebook(object):
-    def __init__(self, token):
-        """
-        Example Usage
+    """
+    Example Usage
 
-        >>> facebook = Facebook("3JUBENXURSR0RJNWOBQBTSNTBCQHQKOZW2USJYF25BXNXEMC")
-        >>> facebook.me()
-        >>> facebook.me.checkins()
-        """
+    >>> facebook = Facebook("3JUBENXURSR0RJNWOBQBTSNTBCQHQKOZW2USJYF25BXNXEMC")
+    >>> facebook.me()
+    >>> facebook.me.checkins()
+    """
+
+    def __init__(self, token):
         self.token = token
 
     def __getattr__(self, k):
