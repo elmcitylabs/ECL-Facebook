@@ -2,6 +2,7 @@ import cgi
 import urllib
 from functools import wraps
 
+from django.http import HttpResponseRedirect
 from signals import post_facebook_auth
 import constants
 
