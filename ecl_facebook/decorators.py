@@ -5,6 +5,13 @@ from functools import wraps
 from signals import post_facebook_auth
 import constants
 
+def facebook_begin(fun):
+    @wraps(fun)
+    def k(request, *args, **kwargs):
+        fun(request, *args, **kwargs)
+        return HttpResponseRedirect(constants.FACEBOOK_DIALOG_URL)
+    return k
+
 def facebook_callback(fun):
     """
     Decorator for views that generates an Graph API access token after a user
