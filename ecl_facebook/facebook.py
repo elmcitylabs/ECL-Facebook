@@ -89,6 +89,9 @@ class Facebook(object):
     def __init__(self, token):
         self.token = token
 
+    def __getitem__(self, k):
+        return FacebookCall(self.token, [k])
+
     def __getattr__(self, k):
         return FacebookCall(self.token, [k])
 
