@@ -12,6 +12,6 @@ setup(
     author_email = 'dan@elmcitylabs.com',
     packages=['ecl_facebook'],
     dependency_links=["http://packages.elmcitylabs.com.s3.amazonaws.com/ecl_tools-0.2.0.tar.gz#egg=ecl_tools-0.2.0"],
-    install_requires=["ecl_tools>=0.2.0", "django==1.3"],
+    install_requires=["ecl_tools>=0.2.0", "django>=1.3"],
 )
 
