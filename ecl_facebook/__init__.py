@@ -9,7 +9,7 @@ ECL Facebook
 
 """
 
-__version__ = "0.4.0"
+__version__ = "0.4.1"
 __author__ = "Dan Loewenherz"
 __copyright__ = "Copyright 2012, Elm City Labs, LLC"
 __maintainer__ = "Dan Loewenherz"
