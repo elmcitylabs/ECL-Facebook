@@ -7,7 +7,7 @@ import time
 import urllib
 import urllib2
 
-from ecl_tools.utils import Objectifier
+from objectifier import Objectifier
 
 FACEBOOK_API_BASE = "https://graph.facebook.com/"
 

@@ -1,10 +1,11 @@
+from functools import wraps
 import cgi
 import urllib
-from functools import wraps
 
 from django.http import HttpResponseRedirect
-from signals import post_facebook_auth
-import constants
+
+from ecl_facebook.signals import post_facebook_auth
+from ecl_facebook import constants
 
 def facebook_begin(fun):
     @wraps(fun)

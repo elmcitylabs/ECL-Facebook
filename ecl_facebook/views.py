@@ -1,7 +1,8 @@
 from django.http import HttpResponseRedirect
 from django.views.decorators.http import require_GET
-from decorators import facebook_callback
-import constants
+
+from ecl_facebook.decorators import facebook_callback
+from ecl_facebook import constants
 
 @require_GET
 def oauth_facebook_begin(request):
