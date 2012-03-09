@@ -9,7 +9,7 @@ import urllib2
 
 from objectifier import Objectifier
 
-FACEBOOK_API_BASE = "https://graph.facebook.com/"
+API_BASE = "https://graph.facebook.com/"
 
 class FacebookError(Exception):
     """
@@ -49,7 +49,7 @@ class FacebookCall(object):
         # kwargs['date_format'] = 'U'
         encoded_params = urllib.urlencode(kwargs)
 
-        url = FACEBOOK_API_BASE + endpoint
+        url = API_BASE + endpoint
         if method == 'GET':
             url += "?" + encoded_params
             request = urllib2.Request(url)

@@ -2,6 +2,7 @@ from functools import wraps
 import cgi
 import urllib
 
+from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 
 from ecl_facebook.signals import post_facebook_auth
@@ -9,10 +10,10 @@ from ecl_facebook import constants
 
 def facebook_begin(fun):
     @wraps(fun)
-    def k(request, *args, **kwargs):
+    def inner(request, *args, **kwargs):
         fun(request, *args, **kwargs)
-        return HttpResponseRedirect(constants.FACEBOOK_DIALOG_URL)
-    return k
+        return HttpResponseRedirect(constants.DIALOG_URL)
+    return inner
 
 def facebook_callback(fun):
     """
@@ -24,13 +25,13 @@ def facebook_callback(fun):
     authenticated (`id`).
     """
     @wraps(fun)
-    def k(request, *args, **kwargs):
-        code = request.GET.get('code', None)
+    def inner(request, *args, **kwargs):
+        code = request.GET.get('code')
         if not code:
-            # XXX Incorporate better app-specific error handling here.
-            return HttpResponse("'code' is a required parameter.")
+            # TODO Incorporate better error handling.
+            raise Exception("Cookies must be enabled to log in with Facebook.")
 
-        params = constants.FACEBOOK_ACCESS_TOKEN_PARAMS.copy()
+        params = constants.ACCESS_TOKEN_PARAMS.copy()
         params['code'] = code
         url = "https://graph.facebook.com/oauth/access_token?" + urllib.urlencode(params)
 
@@ -41,5 +42,5 @@ def facebook_callback(fun):
         token = attributes['access_token'][0]
         post_facebook_auth.send('ecl_facebook', token=token)
         return fun(request, token, *args, **kwargs)
-    return k
+    return inner
 
