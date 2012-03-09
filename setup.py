@@ -10,7 +10,7 @@ except ImportError:
 setup(
     name = 'ecl_facebook',
     version = ecl_facebook.__version__,
-    url = 'http://git.elmcitylabs.com/ecl_facebook',
+    url = 'http://git.elmcitylabs.com/ecl-facebook',
     license = ecl_facebook.__license__,
     description = 'Easy Facebook integration for Django.',
     author = ecl_facebook.__author__,
