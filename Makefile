@@ -13,7 +13,7 @@ commit:
 	git commit -m "bump version to ${VERSION}"
 
 upload: version
-	python setup.py sdist
+	python setup.py sdist upload
 	s3cmd put dist/ecl_facebook-${VERSION}.tar.gz s3://packages.elmcitylabs.com/ -P
 
 pyc:
