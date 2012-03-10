@@ -40,4 +40,4 @@ Finally, add these URLs to your "urls.py".
         url(r"^oauth/facebook/complete$", views.oauth_facebook_complete),
     )
 
-
+And then you're done!
