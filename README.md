@@ -33,10 +33,11 @@ Then, in your views, use the decorators `@facebook_begin` and `@facebook_callbac
 Finally, set up these views in your "urls.py".
 
     from django.conf.urls.defaults import patterns, url
+    from myapp import views
 
-    urlpatterns = patterns('views',
-        url(r'^oauth/facebook/begin$', 'oauth_facebook_begin'),
-        url(r'^oauth/facebook/complete$', 'oauth_facebook_complete'),
+    urlpatterns = patterns('',
+        url(r'^oauth/facebook/begin$', views.oauth_facebook_begin),
+        url(r'^oauth/facebook/complete$', views.oauth_facebook_complete),
     )
 
 
