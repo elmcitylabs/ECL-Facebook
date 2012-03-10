@@ -26,8 +26,8 @@ Then, in your views, use the decorators `@facebook_begin` and `@facebook_callbac
 
     @facebook_callback
     def oauth_facebook_complete(request, token):
-        # `token` contains the authorized Facebook access token you can use to
-        # access your users' information
+        # `token` contains the Facebook access token you can use to access your
+        # users' information
         return {}
 
 Finally, set up these views in your "urls.py".
