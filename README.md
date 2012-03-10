@@ -36,8 +36,8 @@ Finally, add these URLs to your "urls.py".
     from myapp import views
 
     urlpatterns = patterns('',
-        url(r'^oauth/facebook/begin$', views.oauth_facebook_begin),
-        url(r'^oauth/facebook/complete$', views.oauth_facebook_complete),
+        url(r"^oauth/facebook/begin$", views.oauth_facebook_begin),
+        url(r"^oauth/facebook/complete$", views.oauth_facebook_complete),
     )
 
 
