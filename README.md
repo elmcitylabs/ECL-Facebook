@@ -9,7 +9,7 @@ In your "settings.py" file, set values for `FACEBOOK_KEY`, `FACEBOOK_SECRET`,
 
     FACEBOOK_KEY = "340516819320318"
     FACEBOOK_SECRET = "36388212bada9111d9e59a6889f49738"
-    FACEBOOK_REDIRECT_URL = "http://google.com/oauth/facebook/complete"
+    FACEBOOK_REDIRECT_URL = "http://example.com/oauth/facebook/complete"
     FACEBOOK_SCOPE = "email,publish_stream"
 
 If you want to be sent a signal when the user authorizes the app, also add
