@@ -30,7 +30,7 @@ Then, in your views, use the decorators `@facebook_begin` and `@facebook_callbac
         # users' information
         return {}
 
-Finally, set up these views in your "urls.py".
+Finally, add these URLs to your "urls.py".
 
     from django.conf.urls.defaults import patterns, url
     from myapp import views
