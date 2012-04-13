@@ -3,3 +3,6 @@
 ecl_facebook.egg-info/
 build/
 dist/
+lib/
+include/
+bin/
