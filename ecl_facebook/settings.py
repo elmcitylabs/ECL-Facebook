@@ -1,4 +1,14 @@
-from django.conf import settings
+try:
+    from django.conf import settings
+except ImportError:
+    import os
+    class settings(object):
+        FACEBOOK_KEY = os.environ.get('FACEBOOK_KEY')
+        FACEBOOK_SECRET = os.environ.get('FACEBOOK_SECRET')
+        FACEBOOK_REDIRECT_URL = os.environ.get('FACEBOOK_REDIRECT_URL')
+        FACEBOOK_SCOPE = os.environ.get('FACEBOOK_SCOPE')
+
+import warnings
 import urllib
 
 KEY = getattr(settings, 'FACEBOOK_KEY', None)
@@ -7,8 +17,7 @@ REDIRECT_URL = getattr(settings, 'FACEBOOK_REDIRECT_URL', None)
 SCOPE = getattr(settings, 'FACEBOOK_SCOPE', None)
 
 if not all([KEY, SECRET, REDIRECT_URL, SCOPE]):
-    raise ImportError("FACEBOOK_KEY, FACEBOOK_SECRET, FACEBOOK_REDIRECT_URL, \
-            and FACEBOOK_SCOPE must all be defined in your settings.py file.")
+    warnings.warn("FACEBOOK_KEY, FACEBOOK_SECRET, FACEBOOK_REDIRECT_URL, and FACEBOOK_SCOPE must all be defined in your settings.py file or in your environment.", ImportWarning)
 
 DIALOG_PARAMS = {
     'client_id': KEY,
