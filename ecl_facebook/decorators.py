@@ -8,6 +8,10 @@ from ecl_facebook.signals import post_facebook_auth
 from ecl_facebook import settings
 
 def facebook_begin(fun):
+    """
+    Django view decorator that redirects the user to a URL where they can
+    authorize the application.
+    """
     @wraps(fun)
     def inner(request, *args, **kwargs):
         fun(request, *args, **kwargs)
