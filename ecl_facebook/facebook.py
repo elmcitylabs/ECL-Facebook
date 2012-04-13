@@ -66,7 +66,7 @@ class FacebookCall(object):
 
         data = response.read()
         try:
-            response_obj = Objectifier(json.loads(data))
+            response_obj = Objectifier(data)
         except ValueError:
             return data
 
