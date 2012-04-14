@@ -21,7 +21,20 @@ setup(
     author = metadata.__author__,
     author_email = metadata.__email__,
     packages=['ecl_facebook'],
-    install_requires=["objectifier"],
+    classifiers=[
+        "Development Status :: 5 - Production/Stable",
+        "Framework :: Django",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: MIT License",
+        "Natural Language :: English",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python",
+        "Topic :: Internet :: WWW/HTTP :: Dynamic Content :: CGI Tools/Libraries",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "Topic :: Utilities",
+        ],
+    install_requires=['objectifier>=1.1.2'],
     package_data={'': ['LICENSE']},
 )
 

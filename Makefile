@@ -1,4 +1,4 @@
-all: pyc version
+all: pyc version push
 
 init:
 	virtualenv .
@@ -16,13 +16,18 @@ version: pyc
 	git add docs/conf.py
 	git commit -m "bump version to ${MAJ}.${MIN}"
 	python setup.py sdist upload --sign
-	s3cmd put dist/ecl_facebook-${VERSION}.tar.gz s3://packages.elmcitylabs.com/ -P
+	s3cmd put dist/ecl_facebook-${MAJ}.${MIN}.tar.gz s3://packages.elmcitylabs.com/ -P
 
 documentation:
-	cd docs && make html
+	cp docs/index.rst README.rst
+	sed -i '' 's/:ref://g' README.rst
+	cd docs && make html && cd _build/html && git add . && git commit -m "doc update" && git push
+	git add README.rst
+	git add docs
+	git commit -m "doc update"
+	python setup.py upload_docs
 
 push: documentation
 	git push github master
 	git push origin master
-	cd docs/_build/html && git add . && git commit -m "doc update" && git push
 
