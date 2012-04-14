@@ -97,11 +97,11 @@ What we did above is easy. For Django projects, we've made it even easier. In yo
 
     # ...
 
-    @twitter_begin
+    @facebook_begin
     def oauth_facebook_begin(request):
         pass
 
-    @twitter_callback
+    @facebook_callback
     def oauth_facebook_complete(request, access_token):
         facebook = Facebook(token)
         fbuser = facebook.me()
