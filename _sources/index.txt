@@ -86,7 +86,6 @@ So, yeah. That's it. Be fruitful and multiply.
 Integrating with Django
 -----------------------
 
-
 What we did above is easy. For Django projects, we've made it even easier. In your views file, ::
 
     from django.contrib.auth import authenticate, login
