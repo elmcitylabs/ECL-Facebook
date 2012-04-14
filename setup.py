@@ -1,5 +1,6 @@
 #!/usr/bin/env/python
 
+import os
 from ecl_facebook import metadata
 
 try:
