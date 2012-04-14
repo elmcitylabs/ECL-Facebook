@@ -110,7 +110,7 @@ time.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="kn">import</span> <span class="n">authenticate</span><span class="p">,</span> <span class="n">login</span>
 <span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponseRedirect</span>
 
-<span class="kn">from</span> <span class="nn">ecl_facebook</span> <span class="kn">import</span> <span class="n">facebook_begin</span><span class="p">,</span> <span class="n">facebook_callback</span>
+<span class="kn">from</span> <span class="nn">ecl_facebook.decorators.django</span> <span class="kn">import</span> <span class="n">facebook_begin</span><span class="p">,</span> <span class="n">facebook_callback</span>
 
 <span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">User</span>
 
