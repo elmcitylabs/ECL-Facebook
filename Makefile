@@ -1,10 +1,13 @@
-all: pyc version upload
+all: pyc version
 
 init:
-	python setup.py develop
-	pip install -r requirements.txt
+	virtualenv .
+	. bin/activate && python setup.py develop
 
-version:
+pyc:
+	find . -name "*.pyc" -exec rm '{}' ';'
+
+version: pyc
 	echo "Packaging version ${MAJ}.${MIN}"
 	sed -i '' 's/\(__version__ = \).*/\1"${MAJ}.${MIN}"/g' ecl_facebook/metadata.py
 	sed -i '' 's/\(version = \).*/\1"${MAJ}"/g' docs/conf.py
@@ -14,9 +17,6 @@ version:
 	git commit -m "bump version to ${MAJ}.${MIN}"
 	python setup.py sdist upload
 	s3cmd put dist/ecl_facebook-${VERSION}.tar.gz s3://packages.elmcitylabs.com/ -P
-
-pyc:
-	find . -name "*.pyc" -exec rm '{}' ';'
 
 documentation:
 	cd docs && make html
