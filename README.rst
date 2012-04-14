@@ -94,14 +94,18 @@ What we did above is easy. For Django projects, we've made it even easier. In yo
         pass
 
     @facebook_callback
-    def oauth_facebook_complete(request, access_token):
-        facebook = Facebook(token)
-        fbuser = facebook.me()
-        user, _ = User.objects.get_or_create(facebook_id=fbuser.id, defaults={
-            'access_token': access_token})
-        user = authenticate(id=user.id)
-        login(request, user)
-        return HttpResponseRedirect(reverse('home'))
+    def oauth_facebook_complete(request, access_token, error=None):
+        if error is None:
+            facebook = Facebook(token)
+            fbuser = facebook.me()
+            user, _ = User.objects.get_or_create(facebook_id=fbuser.id, defaults={
+                'access_token': access_token})
+            user = authenticate(id=user.id)
+            login(request, user)
+            return HttpResponseRedirect(reverse('home'))
+        else:
+            # handle authentication exception
+            pass
 
 Of course, you'll need to have a URL with the name ``home`` defined in your
 URLs file. Now, add these values to your settings. ::
@@ -118,6 +122,10 @@ URLs file. Now, add these values to your settings. ::
     FACEBOOK_SECRET = "4925935cb93e3446eff851ddaf5fad07"
     FACEBOOK_REDIRECT_URL = "http://example.com/oauth/complete"
     FACEBOOK_SCOPE = "email"
+
+There's also setting called ``FACEBOOK_CSRF_TOKEN_REQUIRED``, which is ``True``
+by default. We don't suggest you change this one unless you have a really good
+reason.
 
 Then map the above views in your urls.py. ::
 
