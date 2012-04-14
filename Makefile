@@ -23,8 +23,8 @@ pyc:
 documentation:
 	cd docs && make html
 
-push:
+push: documentation
 	git push github master
 	git push origin master
-	cd docs && make html && cd _build/html && git add . && git commit -m "doc update" && git push
+	cd _build/html && git add . && git commit -m "doc update" && git push
 
