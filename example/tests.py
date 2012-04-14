@@ -5,7 +5,7 @@ import webbrowser
 from django.test import TestCase
 
 from ecl_facebook import settings
-from ecl_facebook.facebook import Facebook
+from ecl_facebook import Facebook
 
 from .models import User
 from .views import oauth_facebook_complete

@@ -16,14 +16,6 @@ if __name__ == '__main__':
     parser.add_option('--scope', dest='FACEBOOK_SCOPE', type=str, default="email")
     options, args = parser.parse_args()
 
-    if not options.FACEBOOK_KEY:
-        print("Missing parameter, see 'python runtests -h'.")
-        sys.exit(0)
-
-    if not options.FACEBOOK_SECRET:
-        print("Missing parameter, see 'python runtests -h'.")
-        sys.exit(0)
-
     settings.configure(
         INSTALLED_APPS=(
             "example",

@@ -1,8 +1,8 @@
 from django.http import HttpResponse
 
-from ecl_facebook.decorators import facebook_begin
-from ecl_facebook.decorators import facebook_callback
-from ecl_facebook.facebook import Facebook
+from ecl_facebook import facebook_begin
+from ecl_facebook import facebook_callback
+from ecl_facebook import Facebook
 
 def home(request):
     return HttpResponse("See '/oauth/facebook/begin'")
@@ -13,7 +13,5 @@ def oauth_facebook_begin(request):
 
 @facebook_callback
 def oauth_facebook_complete(request, token):
-    fb = Facebook(token)
-    user = fb.me()
-    return HttpResponse("Hello, {}!".format(user.name))
+    return HttpResponse(token)
 
