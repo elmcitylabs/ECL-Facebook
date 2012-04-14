@@ -5,7 +5,7 @@ import urllib
 from django.http import HttpResponseRedirect
 
 from facebook import Facebook
-import settings
+from settings import DIALOG_URL
 
 def facebook_begin(fun):
     """
@@ -15,7 +15,7 @@ def facebook_begin(fun):
     @wraps(fun)
     def inner(request, *args, **kwargs):
         fun(request, *args, **kwargs)
-        return HttpResponseRedirect(settings.DIALOG_URL)
+        return HttpResponseRedirect(DIALOG_URL)
     return inner
 
 def facebook_callback(fun):
@@ -34,14 +34,11 @@ def facebook_callback(fun):
             # TODO Incorporate better error handling.
             raise Exception("Cookies must be enabled to log in with Facebook.")
 
-        params = settings.ACCESS_TOKEN_PARAMS.copy()
-        params['code'] = code
-
         facebook = Facebook()
-        response = facebook.oauth.access_token(**params)
+        response = facebook.oauth.access_token(code=code)
 
         from .signals import post_facebook_auth
         post_facebook_auth.send('ecl_facebook', token=response.access_token)
-        return fun(request, access_token, *args, **kwargs)
+        return fun(request, response.access_token, *args, **kwargs)
     return inner
 

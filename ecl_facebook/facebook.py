@@ -9,6 +9,8 @@ import urllib2
 
 from objectifier import Objectifier
 
+import settings
+
 API_BASE = "https://graph.facebook.com/"
 
 class FacebookError(Exception):
@@ -44,7 +46,9 @@ class FacebookCall(object):
     def __call__(self, method='GET', **kwargs):
         endpoint = "/".join(self.endpoint_components)
 
-        if self.token is not None:
+        if self.token is None:
+            kwargs.update(settings.ACCESS_TOKEN_PARAMS)
+        else:
             kwargs['access_token'] = self.token
 
         # Format dats with Unix timestamps instead of ISO-8601.
