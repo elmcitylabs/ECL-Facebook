@@ -15,7 +15,7 @@ version: pyc
 	git add ecl_facebook/metadata.py
 	git add docs/conf.py
 	git commit -m "bump version to ${MAJ}.${MIN}"
-	python setup.py sdist upload
+	python setup.py sdist upload --sign
 	s3cmd put dist/ecl_facebook-${VERSION}.tar.gz s3://packages.elmcitylabs.com/ -P
 
 documentation:
