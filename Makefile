@@ -6,7 +6,7 @@ init:
 
 version:
 	echo "Packaging version ${VERSION}"
-	sed -i '' 's/\(__version__ = \).*/\1"${VERSION}"/g' ecl_facebook/__init__.py
+	sed -i '' 's/\(__version__ = \).*/\1"${VERSION}"/g' ecl_facebook/metadata.py
 
 commit:
 	git add .
