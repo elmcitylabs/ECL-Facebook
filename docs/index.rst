@@ -23,7 +23,7 @@ Installation
 
 ECL Facebook is on PyPi, so we recommend installing via `pip`_ ::
 
-    $ pip install ecl-twitter
+    $ pip install ecl-facebook
 
 .. _pip: http://www.pip-installer.org/en/latest/
 
@@ -38,8 +38,8 @@ environment variables ``FACEBOOK_KEY``, ``FACEBOOK_SECRET``,
 ``FACEBOOK_REDIRECT_URL``, and ``FACEBOOK_SCOPE`` with the values appropriate
 for your Facebook application. ::
 
-    export FACEBOOK_KEY="Gmxb5Rh7gpOpzunQ7SQcOA"
-    export FACEBOOK_SECRET="irhZg1W5NO2r7M9IRwhjHKpzKPjJ3HXc6RYCbrM0"
+    export FACEBOOK_KEY="256064624431781"
+    export FACEBOOK_SECRET="4925935cb93e3446eff851ddaf5fad07"
     export FACEBOOK_REDIRECT_URL="http://example.com/oauth/complete"
     export FACEBOOK_SCOPE="email"
 
@@ -58,23 +58,26 @@ We've made authentication very simple. Probably too simple, to be honest.::
 
 After opening this URL in your browser and allowing the application, you'll be redirected to a page with a URL similar to the following. ::
 
-    http://local.goodiebag.elmcitylabs.com/redirect?code=AQDOvI5wqlwNXQ6AK9jepHW4LUKboJk7v9yLGeaFNCDCs1hchWpCYoqDF0FZFLS03YOZJ1lLhrzQrQ7PNWD2iiZZ6IBaW0KG6255_e3prYu60QZd6_IOIiC1z0U3w2SWJDiq_rtD0KQtcJk__YvZa1XSicZA5fnyEtEZBE3XzNpEgzp1fZZ8HEeQCrqazGjUNjU#_=_
+    http://example.com/redirect?code=AQDOvI5wqlwNXQ6AK9jepHW4LUKboJk7v9yLGeaFNCDCs1hchWpCYoqDF0FZFLS03YOZJ1lLhrzQrQ7PNWD2iiZZ6IBaW0KG6255_e3prYu60QZd6_IOIiC1z0U3w2SWJDiq_rtD0KQtcJk__YvZa1XSicZA5fnyEtEZBE3XzNpEgzp1fZZ8HEeQCrqazGjUNjU#_=_
 
-Copy 
+You'll need to paste this code in the ``code`` variable below. ::
 
-    >>> facebook = Facebook(token, secret)
-    >>> data = twitter.oauth.access_token(oauth_verifier=verifier)
+    >>> from ecl_facebook import Facebook
+    >>> code = "AQDOvI5wqlwNXQ6AK9jepHW4LUKboJk7v9yLGeaFNCDCs1hchWpCYoqDF0FZFLS03YOZJ1lLhrzQrQ7PNWD2iiZZ6IBaW0KG6255_e3prYu60QZd6_IOIiC1z0U3w2SWJDiq_rtD0KQtcJk__YvZa1XSicZA5fnyEtEZBE3XzNpEgzp1fZZ8HEeQCrqazGjUNjU"
+    >>> facebook = Facebook()
+    >>> data = facebook.oauth.access_token(code=code)
     >>> data
-    <Objectifier#dict oauth_token_secret=unicode user_id=unicode oauth_token=unicode screen_name=unicode>
+    <Objectifier#dict access_token=str expires=str>
 
-Congratulations, you have successfully authenticated with Facebook (told you it was easy). ``data`` is an ``Objectifier`` object which should contain your token, secret, user id, and screen name.
+Congratulations, you have successfully authenticated with Facebook. ``data`` is
+an ``Objectifier`` object which should contains your token and its expiration
+time.
 
 To call the API, use your newly-acquired access token and access token secret::
 
-    >>> twitter = Facebook(data.oauth_token, data.oauth_token_secret)
-    >>> tweets = twitter.statuses.user_timeline()
-    >>> tweets
-    <Objectifier#list elements:20>
+    >>> facebook = Facebook(data.access_token)
+    >>> facebook.me()
+    <Objectifier#dict username=unicode first_name=unicode last_name=unicode verified=bool name=unicode locale=unicode gender=unicode email=unicode link=unicode timezone=int updated_time=unicode id=unicode>
 
 So, yeah. That's it. Be fruitful and multiply.
 
@@ -88,38 +91,41 @@ What we did above is easy. For Django projects, we've made it even easier. In yo
     from django.contrib.auth import authenticate, login
     from django.http import HttpResponseRedirect
 
-    from ecl_twitter import twitter_begin, twitter_callback
+    from ecl_facebook import facebook_begin, facebook_callback
 
     from .models import User
 
     # ...
 
     @twitter_begin
-    def oauth_twitter_begin(request):
+    def oauth_facebook_begin(request):
         pass
 
     @twitter_callback
-    def oauth_twitter_complete(request, data):
-        user, _ = User.objects.get_or_create(screen_name=data.screen_name, defaults={
-            'access_token': data.oauth_token,
-            'access_token_secret': data.oauth_token_secret })
+    def oauth_facebook_complete(request, access_token):
+        facebook = Facebook(token)
+        fbuser = facebook.me()
+        user, _ = User.objects.get_or_create(facebook_id=fbuser.id, defaults={
+            'access_token': access_token})
         user = authenticate(id=user.id)
         login(request, user)
         return HttpResponseRedirect(reverse('home'))
 
-Add these values to your settings.::
+Of course, you'll need to have a URL with the name ``home`` defined in your
+URLs file. Now, add these values to your settings.::
 
     # The User model that you'll be using to authenticate with Facebook.
     PRIMARY_USER_MODEL = "app.User"
 
     AUTHENTICATION_BACKENDS = (
         # ...
-        'ecl_twitter.backends.FacebookAuthBackend',
+        'ecl_facebook.backends.FacebookAuthBackend',
     )
 
-    TWITTER_KEY = "Gmxb5Rh7gpOpzunQ7SQcOA"
-    TWITTER_SECRET = "irhZg1W5NO2r7M9IRwhjHKpzKPjJ3HXc6RYCbrM0"
-    TWITTER_REDIRECT_URL = "http://example.com/oauth/complete"
+    FACEBOOK_KEY = "256064624431781"
+    FACEBOOK_SECRET = "4925935cb93e3446eff851ddaf5fad07"
+    FACEBOOK_REDIRECT_URL = "http://example.com/oauth/complete"
+    FACEBOOK_SCOPE = "email"
 
 Then map the above views in your urls.py::
 
@@ -127,8 +133,8 @@ Then map the above views in your urls.py::
 
     urlpatterns = patterns('app.views',
         # ...
-        url(r'^oauth/twitter/begin$', 'oauth_twitter_begin'),
-        url(r'^oauth/twitter/complete$', 'oauth_twitter_complete'),
+        url(r'^oauth/facebook/begin$', 'oauth_facebook_begin'),
+        url(r'^oauth/facebook/complete$', 'oauth_facebook_complete'),
     )
 
 You're done. Oh, you might also want to add some fields for storing the
@@ -137,6 +143,7 @@ Facebook-related fields in your user model.
 Contributing, feedback, and questions
 -------------------------------------
 
+* Bitbucket: https://bitbucket.com/elmcitylabs
 * Github: https://github.com/elmcitylabs
 * Email: opensource@elmcitylabs.com.
 * Twitter: `@elmcitylabs <http://twitter.com/elmcitylabs>`_
