@@ -21,6 +21,6 @@ from .facebook import Facebook
 
 __all__ = [
     '__author__', '__copyright__', '__email__', '__license__',
-    '__maintainer__', '__version__', 'Facebook',
+    '__maintainer__', '__version__', 'Facebook'
 ]
 

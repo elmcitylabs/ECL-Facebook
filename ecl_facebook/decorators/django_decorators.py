@@ -1,6 +1,8 @@
+import sys
 from functools import wraps
 import urllib
 import uuid
+import django
 
 from django.http import HttpResponseRedirect
 
