@@ -1,4 +1,4 @@
-all: pyc version commit upload
+all: pyc version upload
 
 init:
 	python setup.py develop
@@ -7,12 +7,11 @@ init:
 version:
 	echo "Packaging version ${MAJ}.${MIN}"
 	sed -i '' 's/\(__version__ = \).*/\1"${MAJ}.${MIN}"/g' ecl_facebook/metadata.py
-	sed -i '' 's/\(version = \).*/\1"${MAJ}"/g' ecl_facebook/metadata.py
-	sed -i '' 's/\(release = \).*/\1"${MIN}"/g' ecl_facebook/metadata.py
-
-commit:
-	git add .
-	git commit -m "bump version to ${VERSION}"
+	sed -i '' 's/\(version = \).*/\1"${MAJ}"/g' docs/conf.py
+	sed -i '' 's/\(release = \).*/\1"${MAJ}.${MIN}"/g' docs/conf.py
+	git add ecl_facebook/metadata.py
+	git add docs/conf.py
+	git commit -m "bump version to ${MAJ}.${MIN}"
 
 upload: version
 	python setup.py sdist upload
