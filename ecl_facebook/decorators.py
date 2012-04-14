@@ -4,8 +4,8 @@ import urllib
 
 from django.http import HttpResponseRedirect
 
-from ecl_facebook.signals import post_facebook_auth
-from ecl_facebook import settings
+from facebook import Facebook
+import settings
 
 def facebook_begin(fun):
     """
@@ -36,14 +36,12 @@ def facebook_callback(fun):
 
         params = settings.ACCESS_TOKEN_PARAMS.copy()
         params['code'] = code
-        url = "https://graph.facebook.com/oauth/access_token?" + urllib.urlencode(params)
 
-        # Fetch the access token
-        response = urllib.urlopen(url)
-        data = response.read()
-        attributes = cgi.parse_qs(data)
-        token = attributes['access_token'][0]
-        post_facebook_auth.send('ecl_facebook', token=token)
-        return fun(request, token, *args, **kwargs)
+        facebook = Facebook()
+        response = facebook.oauth.access_token(**params)
+
+        from .signals import post_facebook_auth
+        post_facebook_auth.send('ecl_facebook', token=response.access_token)
+        return fun(request, access_token, *args, **kwargs)
     return inner
 

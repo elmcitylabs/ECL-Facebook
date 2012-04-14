@@ -19,8 +19,11 @@ from .metadata import (
 
 from .decorators import facebook_begin, facebook_callback
 
+from .facebook import Facebook
+
 __all__ = [
     '__author__', '__copyright__', '__email__', '__license__',
-    '__maintainer__', '__version__', 'facebook_begin', 'facebook_callback'
+    '__maintainer__', '__version__', 'facebook_begin', 'facebook_callback',
+    'Facebook',
 ]
 

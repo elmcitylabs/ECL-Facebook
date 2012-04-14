@@ -43,7 +43,9 @@ class FacebookCall(object):
 
     def __call__(self, method='GET', **kwargs):
         endpoint = "/".join(self.endpoint_components)
-        kwargs['access_token'] = self.token
+
+        if self.token is not None:
+            kwargs['access_token'] = self.token
 
         # Format dats with Unix timestamps instead of ISO-8601.
         # kwargs['date_format'] = 'U'
@@ -65,6 +67,10 @@ class FacebookCall(object):
             raise FacebookError(message=message, type=type, code=e.code)
 
         data = response.read()
+
+        if 'text/plain' in response.headers['content-type']:
+            return Objectifier(cgi.parse_qsl(data))
+
         try:
             response_obj = Objectifier(data)
         except ValueError:
@@ -86,7 +92,7 @@ class Facebook(object):
     >>> facebook.me.checkins()
     """
 
-    def __init__(self, token):
+    def __init__(self, token=None):
         self.token = token
 
     def __getitem__(self, k):

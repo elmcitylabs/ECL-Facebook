@@ -1,5 +1,6 @@
 try:
     from django.conf import settings
+    dir(settings)
 except ImportError:
     import os
     class settings(object):
