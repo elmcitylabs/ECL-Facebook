@@ -28,7 +28,7 @@ documentation:
 	git commit -m "doc update"
 	python setup.py upload_docs
 
-push: documentation
+push:
 	git push github master
 	git push origin master
 
