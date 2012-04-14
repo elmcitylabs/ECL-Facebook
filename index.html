@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ECL Facebook &mdash; ECL Facebook 1.0.3 documentation</title>
+    <title>ECL Facebook &mdash; ECL Facebook 1.1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '1.0.3',
+        VERSION:     '1.1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="ECL Facebook 1.0.3 documentation" href="#" /> 
+    <link rel="top" title="ECL Facebook 1.1.0 documentation" href="#" /> 
   </head>
   <body>
     <div class="related">
@@ -34,7 +34,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="#">ECL Facebook 1.0.3 documentation</a> &raquo;</li> 
+        <li><a href="#">ECL Facebook 1.1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -118,14 +118,18 @@ time.</p>
     <span class="k">pass</span>
 
 <span class="nd">@facebook_callback</span>
-<span class="k">def</span> <span class="nf">oauth_facebook_complete</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">access_token</span><span class="p">):</span>
-    <span class="n">facebook</span> <span class="o">=</span> <span class="n">Facebook</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
-    <span class="n">fbuser</span> <span class="o">=</span> <span class="n">facebook</span><span class="o">.</span><span class="n">me</span><span class="p">()</span>
-    <span class="n">user</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span><span class="n">facebook_id</span><span class="o">=</span><span class="n">fbuser</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">{</span>
-        <span class="s">&#39;access_token&#39;</span><span class="p">:</span> <span class="n">access_token</span><span class="p">})</span>
-    <span class="n">user</span> <span class="o">=</span> <span class="n">authenticate</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-    <span class="n">login</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">user</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s">&#39;home&#39;</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">oauth_facebook_complete</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">access_token</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">facebook</span> <span class="o">=</span> <span class="n">Facebook</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+        <span class="n">fbuser</span> <span class="o">=</span> <span class="n">facebook</span><span class="o">.</span><span class="n">me</span><span class="p">()</span>
+        <span class="n">user</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span><span class="n">facebook_id</span><span class="o">=</span><span class="n">fbuser</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">{</span>
+            <span class="s">&#39;access_token&#39;</span><span class="p">:</span> <span class="n">access_token</span><span class="p">})</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">authenticate</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="n">login</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">user</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s">&#39;home&#39;</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c"># handle authentication exception</span>
+        <span class="k">pass</span>
 </pre></div>
 </div>
 <p>Of course, you&#8217;ll need to have a URL with the name <tt class="docutils literal"><span class="pre">home</span></tt> defined in your
@@ -144,6 +148,9 @@ URLs file. Now, add these values to your settings.</p>
 <span class="n">FACEBOOK_SCOPE</span> <span class="o">=</span> <span class="s">&quot;email&quot;</span>
 </pre></div>
 </div>
+<p>There&#8217;s also setting called <tt class="docutils literal"><span class="pre">FACEBOOK_CSRF_TOKEN_REQUIRED</span></tt>, which is <tt class="docutils literal"><span class="pre">True</span></tt>
+by default. We don&#8217;t suggest you change this one unless you have a really good
+reason.</p>
 <p>Then map the above views in your urls.py.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># ...</span>
 
@@ -223,7 +230,7 @@ Facebook-related fields in your user model.</p>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="#">ECL Facebook 1.0.3 documentation</a> &raquo;</li> 
+        <li><a href="#">ECL Facebook 1.1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
