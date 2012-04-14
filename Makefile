@@ -20,9 +20,9 @@ version: pyc
 
 documentation:
 	cd docs && make html
-	cd docs/_build/html && git add . && git commit -m "doc update" && git push
 
 push: documentation
 	git push github master
 	git push origin master
+	cd docs/_build/html && git add . && git commit -m "doc update" && git push
 
