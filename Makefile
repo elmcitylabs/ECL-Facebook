@@ -5,8 +5,10 @@ init:
 	pip install -r requirements.txt
 
 version:
-	echo "Packaging version ${VERSION}"
-	sed -i '' 's/\(__version__ = \).*/\1"${VERSION}"/g' ecl_facebook/metadata.py
+	echo "Packaging version ${MAJ}.${MIN}"
+	sed -i '' 's/\(__version__ = \).*/\1"${MAJ}.${MIN}"/g' ecl_facebook/metadata.py
+	sed -i '' 's/\(version = \).*/\1"${MAJ}"/g' ecl_facebook/metadata.py
+	sed -i '' 's/\(release = \).*/\1"${MIN}"/g' ecl_facebook/metadata.py
 
 commit:
 	git add .
@@ -18,4 +20,12 @@ upload: version
 
 pyc:
 	find . -name "*.pyc" -exec rm '{}' ';'
+
+documentation:
+	cd docs && make html
+
+push:
+	git push github master
+	git push origin master
+	cd docs && make html && cd _build/html && git add . && git commit -m "doc update" && git push
 
