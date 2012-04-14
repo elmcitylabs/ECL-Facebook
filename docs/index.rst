@@ -91,7 +91,7 @@ What we did above is easy. For Django projects, we've made it even easier. In yo
     from django.contrib.auth import authenticate, login
     from django.http import HttpResponseRedirect
 
-    from ecl_facebook import facebook_begin, facebook_callback
+    from ecl_facebook.decorators.django import facebook_begin, facebook_callback
 
     from .models import User
 
