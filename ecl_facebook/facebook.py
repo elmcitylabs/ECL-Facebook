@@ -17,13 +17,16 @@ class FacebookError(Exception):
     """
     Exception for all Facebook Graph API-related errors.
     """
-    def __init__(self, message, type, code):
+    def __init__(self, message, err, code=None):
         self.message = message
-        self.type = type
+        self.err = err
         self.code = code
 
     def __str__(self):
-        return "%s (%s), %s" % (self.type, self.code, self.message)
+        if self.code is None:
+            return "{}, {}".format(self.err, self.message)
+        else:
+            return "{} ({}), {}".format(self.err, self.code, self.message)
 
 
 class FacebookCall(object):
@@ -66,9 +69,9 @@ class FacebookCall(object):
             response = urllib2.urlopen(request)
         except urllib2.HTTPError, e:
             data = json.load(e)
-            type = data['error']['type']
+            err = data['error']['type']
             message = data['error']['message']
-            raise FacebookError(message=message, type=type, code=e.code)
+            raise FacebookError(message=message, err=err, code=e.code)
 
         data = response.read()
 
@@ -82,7 +85,7 @@ class FacebookCall(object):
 
         if 'error' in response_obj:
             raise FacebookError(message=response_obj.error.message,
-                    type=response_obj.error.type, code=response.code)
+                    err=response_obj.error.type, code=response.code)
 
         return response_obj
 

@@ -16,7 +16,7 @@ def oauth_facebook_begin(request):
 
 @require_GET
 @facebook_callback
-def oauth_facebook_complete(request, token, id):
+def oauth_facebook_complete(request, token, error):
     """
     Sample view that shows how the `facebook_callback` decorator should be
     used.

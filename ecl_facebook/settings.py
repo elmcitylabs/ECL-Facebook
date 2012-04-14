@@ -8,6 +8,7 @@ except ImportError:
         FACEBOOK_SECRET = os.environ.get('FACEBOOK_SECRET')
         FACEBOOK_REDIRECT_URL = os.environ.get('FACEBOOK_REDIRECT_URL')
         FACEBOOK_SCOPE = os.environ.get('FACEBOOK_SCOPE')
+        FACEBOOK_CSRF_TOKEN_REQUIRED = os.environ.get('FACEBOOK_CSRF_TOKEN_REQUIRED') == '1'
 
 import warnings
 import urllib
@@ -16,6 +17,7 @@ KEY = getattr(settings, 'FACEBOOK_KEY', None)
 SECRET = getattr(settings, 'FACEBOOK_SECRET', None)
 REDIRECT_URL = getattr(settings, 'FACEBOOK_REDIRECT_URL', None)
 SCOPE = getattr(settings, 'FACEBOOK_SCOPE', None)
+CSRF_TOKEN_REQUIRED = getattr(settings, 'FACEBOOK_CSRF_TOKEN_REQUIRED', True)
 
 if not all([KEY, SECRET, REDIRECT_URL, SCOPE]):
     warnings.warn("FACEBOOK_KEY, FACEBOOK_SECRET, FACEBOOK_REDIRECT_URL, and FACEBOOK_SCOPE must all be defined in your settings.py file or in your environment.", ImportWarning)

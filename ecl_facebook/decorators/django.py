@@ -1,11 +1,11 @@
 from functools import wraps
-import cgi
 import urllib
+import uuid
 
 from django.http import HttpResponseRedirect
 
-from facebook import Facebook
-from settings import DIALOG_URL
+from ecl_facebook.facebook import Facebook, FacebookError
+from ecl_facebook.settings import DIALOG_URL
 
 def facebook_begin(fun):
     """
@@ -15,7 +15,12 @@ def facebook_begin(fun):
     @wraps(fun)
     def inner(request, *args, **kwargs):
         fun(request, *args, **kwargs)
-        return HttpResponseRedirect(DIALOG_URL)
+        params = settings.DIALOG_PARAMS.copy()
+        if settings.CSRF_TOKEN_REQUIRED:
+            state = str(uuid.uuid4())
+            params['state'] = state
+            request.session['facebook_state'] = state
+        return HttpResponseRedirect(urllib.urlencode(DIALOG_PARAMS))
     return inner
 
 def facebook_callback(fun):
@@ -29,16 +34,28 @@ def facebook_callback(fun):
     """
     @wraps(fun)
     def inner(request, *args, **kwargs):
-        code = request.GET.get('code')
-        if not code:
-            # TODO Incorporate better error handling.
-            raise Exception("Cookies must be enabled to log in with Facebook.")
+        error = None
+        access_token = None
+        if settings.CSRF_TOKEN_REQUIRED:
+            if request.session['facebook_state'] != request.GET['state']:
+                error = FacebookError(message="`state` parameter does not match session value. This request might have been initiated by an unauthorized third-party.", err="StateMismatch")
+            del request.session['facebook_state']
+        elif 'error' in request.GET:
+            message = request.GET.get('error_description')
+            err = request.GET.get('error')
+            reason = request.GET.get('error_reason')
+            error = FacebookError(message=message, err=err, code=reason)
+        elif 'code' not in request.GET:
+            error = FacebookError(message="`code` is a required parameter.", err="CodeMissing")
 
-        facebook = Facebook()
-        response = facebook.oauth.access_token(code=code)
+        if error is None:
+            code = request.GET.get('code')
+            facebook = Facebook()
+            response = facebook.oauth.access_token(code=code)
+            access_token = response.access_token
+            from .signals import post_facebook_auth
+            post_facebook_auth.send('ecl_facebook', token=access_token)
 
-        from .signals import post_facebook_auth
-        post_facebook_auth.send('ecl_facebook', token=response.access_token)
-        return fun(request, response.access_token, *args, **kwargs)
+        return fun(request, access_token, error, *args, **kwargs)
     return inner
 
