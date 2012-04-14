@@ -83,18 +83,18 @@ What we did above is easy. For Django projects, we've made it even easier. In yo
     from django.contrib.auth import authenticate, login
     from django.http import HttpResponseRedirect
 
-    from ecl_facebook.decorators.django import facebook_begin, facebook_callback
+    from ecl_facebook.decorators import django
 
     from .models import User
 
     # ...
 
-    @facebook_begin
+    @django.facebook_begin
     def oauth_facebook_begin(request):
         pass
 
-    @facebook_callback
-    def oauth_facebook_complete(request, access_token, error=None):
+    @django.facebook_callback
+    def oauth_facebook_complete(request, access_token, error):
         if error is None:
             facebook = Facebook(token)
             fbuser = facebook.me()
@@ -139,6 +139,13 @@ Then map the above views in your urls.py. ::
 
 You're done. Oh, you might also want to add some fields for storing the
 Facebook-related fields in your user model.
+
+TODO
+----
+
+* Decorators for other popular Python frameworks (Flask, Bottle, tornado).
+* More comprehensive test suite.
+* More users!
 
 Contributing, feedback, and questions
 -------------------------------------
