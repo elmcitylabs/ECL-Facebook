@@ -75,7 +75,7 @@ export FACEBOOK_SCOPE="email"</pre>
 </div>
 <div class="section" id="authentication">
 <span id="id3"></span><h2>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h2>
-<p>We&#8217;ve made authentication very simple. Probably too simple, to be honest.:</p>
+<p>We&#8217;ve made authentication very simple. Probably too simple, to be honest.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ecl_facebook.settings</span> <span class="kn">import</span> <span class="n">DIALOG_URL</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">DIALOG_URL</span>
 <span class="go">https://www.facebook.com/dialog/oauth?scope=email&amp;redirect_uri=http%3A%2F%2Fexample.com%2Fredirect&amp;client_id=340516819320318</span>
@@ -96,7 +96,7 @@ export FACEBOOK_SCOPE="email"</pre>
 <p>Congratulations, you have successfully authenticated with Facebook. <tt class="docutils literal"><span class="pre">data</span></tt> is
 an <tt class="docutils literal"><span class="pre">Objectifier</span></tt> object which should contains your token and its expiration
 time.</p>
-<p>To call the API, use your newly-acquired access token and access token secret:</p>
+<p>To call the API, use your newly-acquired access token and access token secret.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">facebook</span> <span class="o">=</span> <span class="n">Facebook</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">access_token</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">facebook</span><span class="o">.</span><span class="n">me</span><span class="p">()</span>
 <span class="go">&lt;Objectifier#dict username=unicode first_name=unicode last_name=unicode verified=bool name=unicode locale=unicode gender=unicode email=unicode link=unicode timezone=int updated_time=unicode id=unicode&gt;</span>
@@ -106,7 +106,7 @@ time.</p>
 </div>
 <div class="section" id="integrating-with-django">
 <span id="django"></span><h2>Integrating with Django<a class="headerlink" href="#integrating-with-django" title="Permalink to this headline">¶</a></h2>
-<p>What we did above is easy. For Django projects, we&#8217;ve made it even easier. In your views file:</p>
+<p>What we did above is easy. For Django projects, we&#8217;ve made it even easier. In your views file,</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="kn">import</span> <span class="n">authenticate</span><span class="p">,</span> <span class="n">login</span>
 <span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponseRedirect</span>
 
@@ -132,7 +132,7 @@ time.</p>
 </pre></div>
 </div>
 <p>Of course, you&#8217;ll need to have a URL with the name <tt class="docutils literal"><span class="pre">home</span></tt> defined in your
-URLs file. Now, add these values to your settings.:</p>
+URLs file. Now, add these values to your settings.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># The User model that you&#39;ll be using to authenticate with Facebook.</span>
 <span class="n">PRIMARY_USER_MODEL</span> <span class="o">=</span> <span class="s">&quot;app.User&quot;</span>
 
@@ -147,7 +147,7 @@ URLs file. Now, add these values to your settings.:</p>
 <span class="n">FACEBOOK_SCOPE</span> <span class="o">=</span> <span class="s">&quot;email&quot;</span>
 </pre></div>
 </div>
-<p>Then map the above views in your urls.py:</p>
+<p>Then map the above views in your urls.py.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># ...</span>
 
 <span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span><span class="s">&#39;app.views&#39;</span><span class="p">,</span>

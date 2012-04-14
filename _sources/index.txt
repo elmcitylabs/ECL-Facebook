@@ -50,7 +50,7 @@ If you're only interested in integration with Django, read :ref:`django`.
 Authentication
 --------------
 
-We've made authentication very simple. Probably too simple, to be honest.::
+We've made authentication very simple. Probably too simple, to be honest. ::
 
     >>> from ecl_facebook.settings import DIALOG_URL
     >>> DIALOG_URL
@@ -73,7 +73,7 @@ Congratulations, you have successfully authenticated with Facebook. ``data`` is
 an ``Objectifier`` object which should contains your token and its expiration
 time.
 
-To call the API, use your newly-acquired access token and access token secret::
+To call the API, use your newly-acquired access token and access token secret. ::
 
     >>> facebook = Facebook(data.access_token)
     >>> facebook.me()
@@ -86,7 +86,7 @@ So, yeah. That's it. Be fruitful and multiply.
 Integrating with Django
 -----------------------
 
-What we did above is easy. For Django projects, we've made it even easier. In your views file::
+What we did above is easy. For Django projects, we've made it even easier. In your views file, ::
 
     from django.contrib.auth import authenticate, login
     from django.http import HttpResponseRedirect
@@ -112,7 +112,7 @@ What we did above is easy. For Django projects, we've made it even easier. In yo
         return HttpResponseRedirect(reverse('home'))
 
 Of course, you'll need to have a URL with the name ``home`` defined in your
-URLs file. Now, add these values to your settings.::
+URLs file. Now, add these values to your settings. ::
 
     # The User model that you'll be using to authenticate with Facebook.
     PRIMARY_USER_MODEL = "app.User"
@@ -127,7 +127,7 @@ URLs file. Now, add these values to your settings.::
     FACEBOOK_REDIRECT_URL = "http://example.com/oauth/complete"
     FACEBOOK_SCOPE = "email"
 
-Then map the above views in your urls.py::
+Then map the above views in your urls.py. ::
 
     # ...
 
