@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ECL Facebook &mdash; ECL Facebook 1.2.0 documentation</title>
+    <title>ECL Facebook &mdash; ECL Facebook 1.2.2 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '1.2.0',
+        VERSION:     '1.2.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="ECL Facebook 1.2.0 documentation" href="#" /> 
+    <link rel="top" title="ECL Facebook 1.2.2 documentation" href="#" /> 
   </head>
   <body>
     <div class="related">
@@ -34,7 +34,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="#">ECL Facebook 1.2.0 documentation</a> &raquo;</li> 
+        <li><a href="#">ECL Facebook 1.2.2 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -107,17 +107,17 @@ time.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="kn">import</span> <span class="n">authenticate</span><span class="p">,</span> <span class="n">login</span>
 <span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponseRedirect</span>
 
-<span class="kn">from</span> <span class="nn">ecl_facebook.decorators</span> <span class="kn">import</span> <span class="n">django</span>
+<span class="kn">from</span> <span class="nn">ecl_facebook.django_decorators</span> <span class="kn">import</span> <span class="n">facebook_begin</span><span class="p">,</span> <span class="n">facebook_callback</span>
 
 <span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">User</span>
 
 <span class="c"># ...</span>
 
-<span class="nd">@django.facebook_begin</span>
+<span class="nd">@facebook_begin</span>
 <span class="k">def</span> <span class="nf">oauth_facebook_begin</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">pass</span>
 
-<span class="nd">@django.facebook_callback</span>
+<span class="nd">@facebook_callback</span>
 <span class="k">def</span> <span class="nf">oauth_facebook_complete</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">access_token</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
         <span class="n">facebook</span> <span class="o">=</span> <span class="n">Facebook</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
@@ -239,7 +239,7 @@ Facebook-related fields in your user model.</p>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="#">ECL Facebook 1.2.0 documentation</a> &raquo;</li> 
+        <li><a href="#">ECL Facebook 1.2.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
