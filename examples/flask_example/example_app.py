@@ -8,7 +8,7 @@ def oauth_facebook_begin():
     pass
 
 # Alternate method...
-@facebook_callback('/oauth/facebook/complete')
+@facebook_callback(app, '/oauth/facebook/complete')
 def oauth_facebook_complete(token, error):
     return token
 
