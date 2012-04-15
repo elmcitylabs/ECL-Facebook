@@ -84,6 +84,7 @@ What we did above is easy. For Django projects, we've made it even easier. In yo
     from django.http import HttpResponseRedirect
 
     from ecl_facebook.django_decorators import facebook_begin, facebook_callback
+    from ecl_facebook import Facebook
 
     from .models import User
 
@@ -154,7 +155,6 @@ Contributing, feedback, and questions
 * Github: https://github.com/elmcitylabs/ecl-facebook
 * Email: opensource@elmcitylabs.com.
 * Twitter: `@elmcitylabs <http://twitter.com/elmcitylabs>`_
-
 
 Indices and tables
 ==================
