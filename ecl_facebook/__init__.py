@@ -17,10 +17,10 @@ from .metadata import (
     __version__,
 )
 
-from .facebook import Facebook
+from .facebook import Facebook, FacebookError
 
 __all__ = [
     '__author__', '__copyright__', '__email__', '__license__',
-    '__maintainer__', '__version__', 'Facebook'
+    '__maintainer__', '__version__', 'Facebook', 'FacebookError'
 ]
 
