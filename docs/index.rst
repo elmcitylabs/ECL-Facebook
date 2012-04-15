@@ -83,17 +83,17 @@ What we did above is easy. For Django projects, we've made it even easier. In yo
     from django.contrib.auth import authenticate, login
     from django.http import HttpResponseRedirect
 
-    from ecl_facebook.decorators import django
+    from ecl_facebook.django_decorators import facebook_begin, facebook_callback
 
     from .models import User
 
     # ...
 
-    @django.facebook_begin
+    @facebook_begin
     def oauth_facebook_begin(request):
         pass
 
-    @django.facebook_callback
+    @facebook_callback
     def oauth_facebook_complete(request, access_token, error):
         if error is None:
             facebook = Facebook(token)
