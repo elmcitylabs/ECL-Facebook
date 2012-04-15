@@ -55,7 +55,7 @@ def facebook_callback(fun):
             facebook = Facebook()
             response = facebook.oauth.access_token(code=code)
             access_token = response.access_token
-            from .signals import post_facebook_auth
+            from ecl_facebook.signals import post_facebook_auth
             post_facebook_auth.send('ecl_facebook', token=access_token)
 
         return fun(request, access_token, error, *args, **kwargs)

@@ -25,6 +25,7 @@ if __name__ == '__main__':
         FACEBOOK_SECRET=options.FACEBOOK_SECRET,
         FACEBOOK_REDIRECT_URL=options.FACEBOOK_REDIRECT_URL,
         FACEBOOK_SCOPE=options.FACEBOOK_SCOPE,
+        FACEBOOK_CSRF_TOKEN_REQUIRED=False,
         AUTHENTICATION_BACKENDS=(
             "example.backends.FBAuthBackend",
         ),
