@@ -7,7 +7,7 @@ import django
 from django.http import HttpResponseRedirect
 
 from ecl_facebook.facebook import Facebook, FacebookError
-from ecl_facebook.settings import DIALOG_URL
+from ecl_facebook.settings import DIALOG_URL, DIALOG_PARAMS, CSRF_TOKEN_REQUIRED
 
 def facebook_begin(fun):
     """
@@ -17,8 +17,8 @@ def facebook_begin(fun):
     @wraps(fun)
     def inner(request, *args, **kwargs):
         fun(request, *args, **kwargs)
-        params = settings.DIALOG_PARAMS.copy()
-        if settings.CSRF_TOKEN_REQUIRED:
+        params = DIALOG_PARAMS.copy()
+        if CSRF_TOKEN_REQUIRED:
             state = str(uuid.uuid4())
             params['state'] = state
             request.session['facebook_state'] = state
@@ -38,7 +38,7 @@ def facebook_callback(fun):
     def inner(request, *args, **kwargs):
         error = None
         access_token = None
-        if settings.CSRF_TOKEN_REQUIRED:
+        if CSRF_TOKEN_REQUIRED:
             if request.session['facebook_state'] != request.GET['state']:
                 error = FacebookError(message="`state` parameter does not match session value. This request might have been initiated by an unauthorized third-party.", err="StateMismatch")
             del request.session['facebook_state']
