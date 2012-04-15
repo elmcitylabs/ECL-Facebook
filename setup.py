@@ -20,10 +20,7 @@ setup(
     long_description=read('README.rst'),
     author = metadata.__author__,
     author_email = metadata.__email__,
-    packages=[
-        'ecl_facebook',
-        'ecl_facebook.decorators'
-        ],
+    packages=['ecl_facebook'],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Framework :: Django",
