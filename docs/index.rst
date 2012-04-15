@@ -150,8 +150,8 @@ TODO
 Contributing, feedback, and questions
 -------------------------------------
 
-* Bitbucket: https://bitbucket.com/elmcitylabs
-* Github: https://github.com/elmcitylabs
+* Bitbucket: http://bitbucket.com/elmcitylabs/ecl-facebook
+* Github: https://github.com/elmcitylabs/ecl-facebook
 * Email: opensource@elmcitylabs.com.
 * Twitter: `@elmcitylabs <http://twitter.com/elmcitylabs>`_
 
