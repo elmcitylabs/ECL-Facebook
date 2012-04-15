@@ -7,6 +7,7 @@ app = Flask(__name__)
 def oauth_facebook_begin():
     pass
 
+# Alternate method...
 @app.route('/oauth/facebook/complete')
 @facebook_callback
 def oauth_facebook_complete(token, error):
