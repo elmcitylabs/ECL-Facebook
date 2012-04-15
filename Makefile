@@ -21,7 +21,7 @@ version: pyc
 documentation:
 	cp docs/index.rst README.rst
 	sed -i '' 's/:ref://g' README.rst
-	cd docs && make html && cd _build/html && git add . && git commit -m "doc update" && git push
+	cd docs && make html && cd _build/html && git add . && git commit -m "doc update" && git pull && git push
 	python setup.py upload_docs
 	cd ../../..
 	git add README.rst
