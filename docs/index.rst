@@ -144,7 +144,7 @@ Facebook-related fields in your user model.
 TODO
 ----
 
-* Decorators for other popular Python frameworks (Flask, Bottle, tornado).
+* Decorators for other popular Python frameworks.
 * More comprehensive test suite.
 * More users!
 
