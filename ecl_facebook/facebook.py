@@ -69,8 +69,12 @@ class FacebookCall(object):
             response = urllib2.urlopen(request)
         except urllib2.HTTPError, e:
             data = json.load(e)
-            err = data['error']['type']
-            message = data['error']['message']
+            if 'error' in data:
+                err = data['error']['type']
+                message = data['error']['message']
+            elif 'error_code' in data:
+                err = data['error_code']
+                message = data['error_msg']
             raise FacebookError(message=message, err=err, code=e.code)
 
         data = response.read()
