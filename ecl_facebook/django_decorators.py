@@ -39,7 +39,7 @@ def facebook_callback(fun):
         access_token = None
         if CSRF_TOKEN_REQUIRED:
             if 'facebook_state' not in request.session:
-                error = FacebookError(message="`facebook_state` parameter missing in user session. You might want to restart the authentication flow.", err="StateMIssing")
+                error = FacebookError(message="`facebook_state` parameter missing in user session. You might want to restart the authentication flow.", err="StateMissing")
             elif 'state' not in request.GET:
                 error = FacebookError(message="`state` parameter is required. This request might have been initiated by an unauthorized third-party.", err="StateMissing")
                 del request.session['facebook_state']
