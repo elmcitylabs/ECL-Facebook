@@ -1,4 +1,3 @@
-import sys
 from functools import wraps
 import urllib
 import uuid
@@ -22,7 +21,7 @@ def facebook_begin(fun):
             state = str(uuid.uuid4())
             params['state'] = state
             request.session['facebook_state'] = state
-        return HttpResponseRedirect(urllib.urlencode(DIALOG_PARAMS))
+        return HttpResponseRedirect("{}?{}".format(DIALOG_URL, urllib.urlencode(params)))
     return inner
 
 def facebook_callback(fun):

@@ -18,16 +18,16 @@ if __name__ == '__main__':
 
     settings.configure(
         INSTALLED_APPS=(
-            "example",
+            "examples.django_example",
         ),
-        ROOT_URLCONF="example.urls",
+        ROOT_URLCONF="examples.django_example.urls",
         FACEBOOK_KEY=options.FACEBOOK_KEY,
         FACEBOOK_SECRET=options.FACEBOOK_SECRET,
         FACEBOOK_REDIRECT_URL=options.FACEBOOK_REDIRECT_URL,
         FACEBOOK_SCOPE=options.FACEBOOK_SCOPE,
         FACEBOOK_CSRF_TOKEN_REQUIRED=False,
         AUTHENTICATION_BACKENDS=(
-            "example.backends.FBAuthBackend",
+            "django_example.backends.FBAuthBackend",
         ),
         DATABASES={
             "default": {
@@ -38,5 +38,5 @@ if __name__ == '__main__':
     )
 
     from django.core.management import call_command
-    call_command("test", "example")
+    call_command("test", "django_example")
 
