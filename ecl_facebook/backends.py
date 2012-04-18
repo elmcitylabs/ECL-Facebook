@@ -4,7 +4,7 @@ from django.db.models import get_model
 app_label, model_name = settings.PRIMARY_USER_MODEL.split('.')
 GenericUser = get_model(app_label, model_name)
 
-class FacebookAuthBackend():
+class FacebookAuthBackend(object):
     def authenticate(self, id):
         try:
             return GenericUser.objects.get(id=id)
