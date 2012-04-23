@@ -60,7 +60,11 @@ def facebook_callback(fun):
             code = request.GET.get('code')
             facebook = Facebook()
             response = facebook.oauth.access_token(code=code)
-            access_token = response.access_token
+            try:
+                access_token = response.access_token
+            except AttributeError:
+                access_token = response['access_token']
+
             from ecl_facebook.signals import post_facebook_auth
             post_facebook_auth.send('ecl_facebook', token=access_token)
 

@@ -7,7 +7,14 @@ import time
 import urllib
 import urllib2
 
-from objectifier import Objectifier
+try:
+    from objectifier import Objectifier
+except ImportError:
+    def Objectifier(data):
+        try:
+            return json.loads(data)
+        except TypeError:
+            return dict(data)
 
 import settings
 
