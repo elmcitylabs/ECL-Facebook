@@ -40,7 +40,7 @@ for your Facebook application. ::
     export FACEBOOK_REDIRECT_URL="http://example.com/oauth/complete"
     export FACEBOOK_SCOPE="email"
 
-If you're only interested in integration with Django, read `django`.
+If you're only interested in integration with Django, read the section below.
 
 .. _authentication:
 
@@ -77,8 +77,6 @@ To call the API, use your newly-acquired access token and access token secret. :
     <Objectifier#dict username=unicode first_name=unicode last_name=unicode verified=bool name=unicode locale=unicode gender=unicode email=unicode link=unicode timezone=int updated_time=unicode id=unicode>
 
 So, yeah. That's it. Be fruitful and multiply.
-
-.. _django:
 
 Integrating with Django
 -----------------------
