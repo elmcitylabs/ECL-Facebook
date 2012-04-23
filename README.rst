@@ -1,23 +1,27 @@
 ECL Facebook
 ============
 
-ECL Facebook is an awesome Facebook library for Python 2.7+. It makes the Facebook
-API a joy to use, has built-in integration for Django and Flask. To find out
-more, read on!
+ECL Facebook is a Facebook library for Python 2.7+. It makes the Facebook API a
+joy to use and has built-in integration for `Django`_ and `Flask`_.
 
 If you have an issue to report or a feature request, add it at
 https://github.com/elmcitylabs/ECL-Facebook/issues.
+
+.. _Django: https://www.djangoproject.com/
+.. _Flask: http://flask.pocoo.org/
 
 .. _installation:
 
 Installation
 ------------
 
-ECL Facebook is on PyPi, so we recommend installing via `pip`_ ::
+ECL Facebook is on `PyPi`_, and we recommend installing via `pip`_ ::
 
     $ pip install ecl-facebook
 
 .. _pip: http://www.pip-installer.org/en/latest/
+
+.. _PyPi: http://pypi.python.org/pypi/ecl_facebook
 
 .. _configuration:
 
