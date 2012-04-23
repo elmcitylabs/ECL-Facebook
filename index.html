@@ -45,14 +45,13 @@
             
   <div class="section" id="ecl-facebook">
 <h1>ECL Facebook<a class="headerlink" href="#ecl-facebook" title="Permalink to this headline">¶</a></h1>
-<p>ECL Facebook is an awesome Facebook library for Python 2.7+. It makes the Facebook
-API a joy to use, has built-in integration for Django and Flask. To find out
-more, read on!</p>
+<p>ECL Facebook is a Facebook library for Python 2.7+. It makes the Facebook API a
+joy to use and has built-in integration for <a href="#id5"><span class="problematic" id="id6">`Django`_</span></a> and <a class="reference external" href="http://flask.pocoo.org/">Flask</a>.</p>
 <p>If you have an issue to report or a feature request, add it at
 <a class="reference external" href="https://github.com/elmcitylabs/ECL-Facebook/issues">https://github.com/elmcitylabs/ECL-Facebook/issues</a>.</p>
 <div class="section" id="installation">
 <span id="id1"></span><h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<p>ECL Facebook is on PyPi, so we recommend installing via <a class="reference external" href="http://www.pip-installer.org/en/latest/">pip</a></p>
+<p>ECL Facebook is on <a class="reference external" href="http://pypi.python.org/pypi/ecl_facebook">PyPi</a>, and we recommend installing via <a class="reference external" href="http://www.pip-installer.org/en/latest/">pip</a></p>
 <div class="highlight-python"><pre>$ pip install ecl-facebook</pre>
 </div>
 </div>
@@ -68,7 +67,7 @@ export FACEBOOK_SECRET="4925935cb93e3446eff851ddaf5fad07"
 export FACEBOOK_REDIRECT_URL="http://example.com/oauth/complete"
 export FACEBOOK_SCOPE="email"</pre>
 </div>
-<p>If you&#8217;re only interested in integration with Django, read <a class="reference internal" href="#django"><em>Integrating with Django</em></a>.</p>
+<p>If you&#8217;re only interested in integration with Django, read <em class="xref std std-ref">django</em>.</p>
 </div>
 <div class="section" id="authentication">
 <span id="id3"></span><h2>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h2>
@@ -102,7 +101,7 @@ time.</p>
 <p>So, yeah. That&#8217;s it. Be fruitful and multiply.</p>
 </div>
 <div class="section" id="integrating-with-django">
-<span id="django"></span><h2>Integrating with Django<a class="headerlink" href="#integrating-with-django" title="Permalink to this headline">¶</a></h2>
+<span id="id4"></span><h2>Integrating with Django<a class="headerlink" href="#integrating-with-django" title="Permalink to this headline">¶</a></h2>
 <p>What we did above is easy. For Django projects, we&#8217;ve made it even easier. In your views file,</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="kn">import</span> <span class="n">authenticate</span><span class="p">,</span> <span class="n">login</span>
 <span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponseRedirect</span>
