@@ -69,8 +69,11 @@ class FacebookCall(object):
         if method == 'GET':
             url += "?" + encoded_params
             request = urllib2.Request(url)
-        else:
+        elif method == 'POST':
             request = urllib2.Request(url, encoded_params)
+        elif method == 'DELETE':
+            request = urllib2.Request(url, encoded_params)
+            request.get_method = lambda: 'DELETE'
 
         try:
             response = urllib2.urlopen(request)
@@ -94,9 +97,13 @@ class FacebookCall(object):
         except ValueError:
             return data
 
-        if 'error' in response_obj:
-            raise FacebookError(message=response_obj.error.message,
-                    err=response_obj.error.type, code=response.code)
+        try:
+            if 'error' in response_obj:
+                raise FacebookError(message=response_obj.error.message,
+                        err=response_obj.error.type, code=response.code)
+        except TypeError:
+            # Response was probably a bool
+            pass
 
         return response_obj
 
