@@ -34,7 +34,7 @@ setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Utilities",
         ],
-    install_requires=['objectifier==1.2.3'],
+    install_requires=[],
     package_data={'': ['LICENSE']},
 )
 
