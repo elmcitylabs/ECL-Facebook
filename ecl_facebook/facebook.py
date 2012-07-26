@@ -41,9 +41,10 @@ class FacebookCall(object):
     Abstract object that helps create a clean object-based interface to the
     Facebook Graph API.
     """
-    def __init__(self, token, endpoint_components):
+    def __init__(self, token, endpoint_components, use_objectifier=False):
         self.token = token
         self.endpoint_components = endpoint_components
+        self.use_objectifier = use_objectifier
 
     def __getattr__(self, k):
         self.endpoint_components.append(k)
@@ -90,17 +91,27 @@ class FacebookCall(object):
         data = response.read()
 
         if 'text/plain' in response.headers['content-type']:
-            return Objectifier(cgi.parse_qsl(data))
+            if self.use_objectifier:
+                return Objectifier(cgi.parse_qsl(data))
+            else:
+                return dict(cgi.parse_qsl(data))
 
         try:
-            response_obj = Objectifier(data)
+            if self.use_objectifier:
+                response_obj = Objectifier(data)
+            else:
+                response_obj = json.loads(data)
         except ValueError:
             return data
 
         try:
             if 'error' in response_obj:
-                raise FacebookError(message=response_obj.error.message,
-                        err=response_obj.error.type, code=response.code)
+                if self.use_objectifier:
+                    raise FacebookError(message=response_obj.error.message,
+                            err=response_obj.error.type, code=response.code)
+                else:
+                    raise FacebookError(message=response_obj['error']['message'],
+                            err=response_obj['error']['type'], code=response['code'])
         except TypeError:
             # Response was probably a bool
             pass
@@ -117,14 +128,15 @@ class Facebook(object):
     >>> facebook.me.checkins()
     """
 
-    def __init__(self, token=None):
+    def __init__(self, token=None, use_objectifier=False):
         self.token = token
+        self.use_objectifier = use_objectifier
 
     def __getitem__(self, k):
-        return FacebookCall(self.token, [k])
+        return FacebookCall(self.token, [k], use_objectifier=self.use_objectifier)
 
     def __getattr__(self, k):
-        return FacebookCall(self.token, [k])
+        return FacebookCall(self.token, [k], use_objectifier=self.use_objectifier)
 
 
 def get_user_from_cookie(cookies, app_id, app_secret):
