@@ -41,7 +41,6 @@ def facebook_callback(fun_or_app, route=None):
                 error = FacebookError(message="`state` parameter is required. This request might have been initiated by an unauthorized third-party.", err="StateMissing")
             elif session['facebook_state'] != request.args['state']:
                 error = FacebookError(message="`state` parameter does not match session value. This request might have been initiated by an unauthorized third-party.", err="StateMismatch")
-            del session['facebook_state']
         elif 'error' in request.args:
             message = request.args.get('error_description')
             err = request.args.get('error')

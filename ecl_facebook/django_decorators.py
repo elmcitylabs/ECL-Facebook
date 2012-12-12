@@ -46,8 +46,6 @@ def facebook_callback(fun):
             elif request.session['facebook_state'] != request.GET['state']:
                 error = FacebookError(message="`state` parameter does not match session value. This request might have been initiated by an unauthorized third-party.", err="StateMismatch")
                 del request.session['facebook_state']
-            else:
-                del request.session['facebook_state']
         elif 'error' in request.GET:
             message = request.GET.get('error_description')
             err = request.GET.get('error')
